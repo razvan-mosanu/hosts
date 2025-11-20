@@ -1,6 +1,18 @@
+
+
 #!/bin/bash
 
-HOSTS_FILE="$HOME/etc/hosts"
+if [ $# -eq 0 ]; then
+    echo "Utilizare: $0 <fisier>"
+    exit 1
+fi
+
+HOSTS_FILE="$1"
+
+if [ ! -f "$HOSTS_FILE" ]; then
+    echo "Eroare: Fisierul $HOSTS_FILE nu exista."
+    exit 1
+fi
 
 verify_IP() {
     HOST_NAME=$1
@@ -30,3 +42,4 @@ while read -r line; do
         verify_IP "$NAME" "$IP"
     fi
 done < "$HOSTS_FILE"
+
